@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Mahu bby 💜</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght=500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* GLOBAL STYLES */
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Poppins',sans-serif;
+      background:radial-gradient(circle at top,#1b0626,#0b0012 60%,#050008);
+      min-height:100vh;color:#efe6ff;overflow-x:hidden;
+      position: relative; 
+    }
+    .page{display:none;min-height:100vh;padding:26px;position:relative;z-index:1}
+    .page.active{display:block}
+    .card{
+      max-width:900px;margin:auto;
+      background:linear-gradient(160deg,rgba(120,70,160,.25),rgba(10,0,20,.9));
+      border-radius:30px;padding:34px;
+      box-shadow:0 35px 90px rgba(0,0,0,.7);
+      border:1px solid rgba(200,160,255,.2)
+    }
+    .center{text-align:center}
+    
+    /* CRAZY TEXT STYLING */
+    h1,h2{
+        font-family:'Playfair Display',serif;
+        color:#e6d6ff;
+        text-shadow: 
+            0 0 5px rgba(255, 153, 200, 0.8),
+            0 0 15px rgba(159, 107, 255, 0.6),
+            0 0 30px rgba(159, 107, 255, 0.4);
+    }
+    h1{font-size:2rem}
+    h2{font-size:1.1rem}
+    p{
+        line-height:1.9;
+        font-size:1.05rem;
+        color:#f2eaff;
+        text-shadow: 0 0 1px #fff, 0 0 2px #9f6bff; 
+    }
+
+    /* RESTORED ORIGINAL PRIMARY BUTTON STYLE */
+    .btn{
+      display:inline-block;margin-top:26px;
+      background:linear-gradient(135deg,#9f6bff,#5a189a);
+      color:#fff;padding:14px 32px;border-radius:999px;
+      text-decoration:none;font-weight:500;letter-spacing:.4px;
+      box-shadow:0 0 30px rgba(160,110,255,.6);
+      transition:.3s
+    }
+    .btn:hover{transform:translateY(-4px)}
+    #skip-btn {
+        margin-top: 40px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        border: none;
+        display: inline-block;
+    }
+    
+    /* CRAZY PHOTO FRAME EFFECT + ADDED MARGIN BELOW */
+    .photo{
+        width:280px; 
+        height:280px;
+        margin:30px auto; 
+        margin-bottom: 40px; 
+        border-radius:50%; 
+        overflow:hidden;
+        box-shadow: 
+            0 0 0 10px rgba(160,110,255,.7), 
+            0 0 20px 15px #ff99c8, 
+            0 0 300px 20px #9f6bff; 
+        transform: rotate(-3deg); 
+        transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
+    }
+    .photo:hover {
+        transform: rotate(3deg) scale(1.03); 
+        box-shadow: 
+            0 0 0 10px rgba(255,153,200,.9), 
+            0 0 60px 20px #ff99c8, 
+            0 0 380px 80px #9f6bff;
+    }
+    .photo img{width:100%;height:100%;object-fit:cover}
+
+    .spark{position:fixed;bottom:-20px;font-size:18px;animation:float 8s linear forwards;opacity:.50;z-index:0}
+    @keyframes float{to{transform:translateY(-130vh) rotate(360deg);opacity:0}}
+
+    .lock input{padding:14px 18px;border-radius:16px;border:1px solid rgba(200,160,255,.4);background:rgba(10,0,20,.8);color:#fff;width:260px;text-align:center}
+
+    footer{opacity:.8;margin-top:14px}
+    
+    /* COUNTDOWN SPECIFIC STYLES (Kept as is) */
+    #timer-container {
+        margin-top: 30px;
+        color: #fff;
+    }
+    .timer-unit {
+        display: inline-block;
+        margin: 0 15px;
+        text-align: center;
+    }
+    .timer-number {
+        display: block;
+        font-family:'Playfair Display',serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #A020F0; 
+    }
+    .timer-label {
+        display: block;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.7;
+        margin-top: 5px;
+    }
+    
+    /* MUSIC TOGGLE BUTTON STYLES */
+    #music-toggle-btn {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 50%;
+        background: radial-gradient(circle at top left, #ff99c8, #9f6bff); 
+        color: #fff;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(159, 107, 255, 0.7), inset 0 0 10px rgba(255, 255, 255, 0.4);
+        z-index: 1000; 
+        transition: all 0.3s ease;
+    }
+
+    #music-toggle-btn:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 8px 30px rgba(255, 153, 200, 0.9);
+    }
+
+    /* NAVIGATION BUTTONS (PREV/NEXT) STYLES */
+    .nav-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 50px; 
+        padding: 0 10px; 
+    }
+    .nav-btn-icon {
+        width: 40px;
+        height: 40px;
+        line-height: 40px; 
+        text-align: center;
+        border-radius: 50%;
+        background: rgba(160,110,255, 0.15); 
+        color: #ff99c8; 
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-decoration: none;
+    }
+
+    .nav-btn-icon:hover {
+        background: rgba(160,110,255, 0.3); 
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(255, 153, 200, 0.4);
+    }
+    
+    /* WATERMARK STYLES */
+        .watermark {
+            position: fixed;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: rgba(255, 153, 200, 0.4); /* Soft pink color */
+            font-weight: 300;
+            z-index: 999; /* Ensure it stays above everything else */
+            pointer-events: none; /* Allows clicks to go through it */
+            letter-spacing: 0.5px;
+        }
+        
+    /* FIREWORKS CONTAINER */
+    #fireworks-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 500; 
+        pointer-events: none; 
+        overflow: hidden;
+    }
+    
+    /* FIREWORK PARTICLE STYLES (IMPROVED) */
+    .explosion-particle {
+        position: absolute;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        /* Transition handled by JS for precise explosion timing */
+    }
+    
+    .page#page7.active .card {
+        z-index: 2; /* Keep card content above fireworks */
+    }
+  </style>
+</head>
+<body>
+
+<audio id="music-countdown" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452187628148621376/mixkit-wall-clock-tick-tock-1060.wav?ex=6948e69e&is=6947951e&hm=c792aa98a1e5416b7ee0a42294635d9cf89fedb72d89e7bc4f00558abc8d11ab&" type="audio/mpeg"></audio>
+<audio id="music-page0" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452198521737314489/sakhiya_Ne_Mainu_Mere_Maar_Diya_Danish_zehen_song256k.mp3?ex=6948f0c4&is=69479f44&hm=48ad3df3409cba78abdb2d880e0afa9ef8892f39ae3689e79f9736d42fa00fbd&" type="audio/mpeg"></audio>
+<audio id="music-page1" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452201404092383262/AudioCutter_Raanjhanaa_-_Lyrical_Video___Dhanush_Sonam_Kapoor___A._R._Rahman___.mp3?ex=6948f373&is=6947a1f3&hm=1865a91837f15b6b84b8815b6d2895314b3b27d5cf8c4283a8a5a5410df8c170&" type="audio/mpeg"></audio>
+<audio id="music-page2" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452202757728632872/AudioCutter_Espresso_-_Ananya_Nabila___Espresso_Full_Version___Aadat___Atif_Asla.mp3?ex=6948f4b6&is=6947a336&hm=8390ce133e46f4be2a09585286ecb46badadadc44473abf69cdb9611572d2981&" type="audio/mpeg"></audio>
+<audio id="music-page3" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452205317906759812/AudioCutter_tujhe_iski_bhabhi_bana_du_aa_chalti_kya_status_viral_tranding_po.mp3?ex=6948f718&is=6947a598&hm=48d7cdce4abe6bf1e91b382e379d4d5599a785bd547df37b53069b89f7b6bb4b&" type="audio/mpeg"></audio>
+<audio id="music-page4" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452207835743129651/AudioCutter_Jeene_Laga_Hoon_Song_Video___Ramaiya_Vastavaiya___Girish_Kumar___Shr.mp3?ex=6948f970&is=6947a7f0&hm=bc47ed8bacf0b55eb2975d5a2908efe6f61f4e3ec0c360c10356191a0d49b863&" type="audio/mpeg"></audio>
+<audio id="music-page5" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452207507698090057/AudioCutter_Pani_Da_Rang___Full_Song_With_Lyrics___Vicky_Donor___Ayushmann_Khurr.mp3?ex=6948f922&is=6947a7a2&hm=4e09a580c569454c319530d7a8928d33327e3a38d55c33f3702480669f059979&" type="audio/mpeg"></audio>
+<audio id="music-page6" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452206499358183526/AudioCutter_Mi_Amor__Lyrics__-_Sharn_40k___The_Paul256k.mp3?ex=6948f832&is=6947a6b2&hm=1cfdc53507d6c16771d66015d225cf4fdcd9cdf82073e76803eaf51676c6d902&" type="audio/mpeg"></audio>
+<audio id="music-page7" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452194250711367690/AudioCutter_Harkirat_Sangha___Starboy_-_Midnight_Call__Lyrics_256k.mp3?ex=6948ecc9&is=69479b49&hm=9e6a45dbc7e110b36cbdffc932882986b4b260a5b1401ad7ec50649045eef3d8&" type="audio/mpeg"></audio> <audio id="fireworkSound"><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452255998952607797/FIREWORKS_SOUND_EFFECT_DIWALI_amazingfireworks_firworks_crackers_sound_effects256k.mp3?ex=6949264b&is=6947d4cb&hm=52152381a41fb7a052d0bf4f36fb514a3fecd449f41d791e44c8eae6eae431a8&" type="audio/mpeg"></audio>
+
+
+<button id="music-toggle-btn" onclick="toggleMusic()">🎶</button>
+
+<div id="fireworks-container"></div>
+
+    <div class="watermark">Made By Your Hubby(Pintu)</div>
+
+<section class="page active" id="page-countdown">
+  <div class="card center">
+    <h1>A Little Wait... ⏳</h1>
+  <br>
+    <p>Counting down the moments to your special day!!!</p>
+    
+    <div id="timer-container">
+        <div class="timer-unit">
+            <span class="timer-number" id="days">0</span>
+            <span class="timer-label">Days</span>
+        </div>
+        <div class="timer-unit">
+            <span class="timer-number" id="hours">0</span>
+            <span class="timer-label">Hours</span>
+        </div>
+        <div class="timer-unit">
+            <span class="timer-number" id="minutes">0</span>
+            <span class="timer-label">Minutes</span>
+        </div>
+        <div class="timer-unit">
+            <span class="timer-number" id="seconds">0</span>
+            <span class="timer-label">Seconds</span>
+        </div>
+    </div>
+    
+    <a id="skip-btn" onclick="skipCountdown()" class="btn">Skip Countdown</a>
+  </div>
+</section>
+
+<section class="page" id="page0">
+  <div class="card center lock">
+    <h1>A Quiet Secret 💜</h1>
+    <br>
+    <br>
+    <p>Enter our future daughter name 
+    <br> (in lowercase)</p>
+  <br>
+    <input id="pass" placeholder="example: kunal" />
+    <br>
+    <a class="btn" onclick="unlock()">Unlock</a>
+  </div>
+</section>
+
+<section class="page" id="page1">
+  <div class="card center">
+    <h1>Happiest Birthday Meraaa Bacchaaaaaa 🫶🏻🥹❤️‍🩹</h1>
+    <br>
+    <p>Some moments are meant to be felt slowly... just like you🫵🏻🤭</p>
+    <br>
+    <br>
+    <div class="photo"><img src="https://cdn.discordapp.com/attachments/1090932473120161854/1452234242430865439/IMG_COM_202510311041291580.jpg?ex=69491208&is=6947c088&hm=3d4d0ddd44a157e270fd3aa0ba6700804eebdd748293f681f7b0854356debe9d&"></div>
+    <a class="btn" onclick="changePage(2);toggleMusic(true)">Begin</a>
+  </div>
+</section>
+
+<section class="page" id="page2">
+  <div class="card center">
+    <h2>For You, Always!!!!!</h2>
+    <br>
+    <br>
+    <div class="photo"><img src="https://cdn.discordapp.com/attachments/1090932473120161854/1452234243643019427/Picsart_25-12-21_15-05-44-283.jpg?ex=69491208&is=6947c088&hm=ea3c0a3e7eb4cc4fc8595e1e1028be31f1a1f494c66a03de5c2e55d47378ced5&"></div>
+    <br>
+    <p>
+      Honestly baby you feel different. not loud, not dramatic.
+      just calm. real. the kind of person who slowly becomes important
+      without even trying. i like how you exist soft but strong,
+      simple but unforgettable. (chatgpt ne likha h)
+      <br><br>
+      Today isn't just your birthday, it's a reminder that apka kunal aj bhi mujhse gali sunega <3!!
+    </p>
+    <div class="nav-buttons">
+        <a class="nav-btn-icon" onclick="changePage(1)">&#8592;</a>
+        <a class="nav-btn-icon" onclick="changePage(3)">&#8594;</a>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page3">
+  <div class="card center">
+    <h2>Gift One > My Intentions</h2>
+    <br>
+    <br>
+    <div class="photo"><img src="https://cdn.discordapp.com/attachments/1090932473120161854/1452234243022520461/Picsart_25-12-21_15-08-38-150.jpg?ex=69491208&is=6947c088&hm=f9535432395d227dc180a9610719cf083bf979384de120284b09f70e6900f995&"></div>
+    <br>
+    <p>
+      Intentions Toh Bht ache h!!(apki godi m sona 🤭)
+      <br>
+      Shadi Krna h apse Babeee 😭😭!!!!
+      <br>
+      Kunal Ki MKC 🤭!!
+    </p>
+    <div class="nav-buttons">
+        <a class="nav-btn-icon" onclick="changePage(2)">&#8592;</a>
+        <a class="nav-btn-icon" onclick="changePage(4)">&#8594;</a>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page4">
+  <div class="card center">
+    <h2>Gift Two > Your Safe Space</h2>
+    <br>
+    <br>
+    <div class="photo"><img src="https://cdn.discordapp.com/attachments/1090932473120161854/1452234244268228659/IMG_COM_2025103110522922137.png?ex=69491209&is=6947c089&hm=3b506e66e1656ae6626d43a4b5cae4e7d4dd9dbc402b3f47561577cea118cf62&"></div>
+    <br>
+    <p>
+      With Me, You never have to pretend!!!
+      bad days? silent moods? random thoughts? all allowed!!
+      this space is yours pgl 🫵🏻
+      Kissi Du???
+    </p>
+    <div class="nav-buttons">
+        <a class="nav-btn-icon" onclick="changePage(3)">&#8592;</a>
+        <a class="nav-btn-icon" onclick="changePage(5)">&#8594;</a>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page5">
+  <div class="card center">
+    <h2>Gift Three > Promise </h2>
+    <br>
+    <br>
+    <div class="photo"><img src="https://cdn.discordapp.com/attachments/1090932473120161854/1452234247598248027/IMG_COM_2025103110413092514.png?ex=69491209&is=6947c089&hm=bb0b7e12d14ceb6e09fb90cfde0f4391c95888c349097376b1870c45cf61064e&"></div>
+    <br>
+    <p>
+      My Promise to You 🤍
+<br>
+I promise that one day, I will marry you 💍!!!
+No matter how long the journey is, m apko hi choose karuga 🤍
+<br>
+I promise to love you, respect you, and stand by you in every phase of life 🫶🏻!!!!
+ap meri future ho, meri forever ho 🥹🫶🏻
+<br>
+This isn't just a promise, it's my truth 🖐🏻🙂‍↕️!!
+You're mine, and I’m always yours 🫶🏻!!!!(until unless kunal ki wpis se entry ho jaye)
+    </p>
+    <div class="nav-buttons">
+        <a class="nav-btn-icon" onclick="changePage(4)">&#8592;</a>
+        <a class="nav-btn-icon" onclick="changePage(6)">&#8594;</a>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page6">
+  <div class="card center">
+    <h2>Gift Four → Always You</h2>
+    <br>
+    <br>
+    <div class="photo"><img src="https://cdn.discordapp.com/attachments/1090932473120161854/1452234246851920015/IMG_COM_202510311050486537.png?ex=69491209&is=6947c089&hm=5d2626bd01f724898b3e15cdd66137a6676eb4347cbe4747b2afc596eebb6e1a&"></div>
+    <br>
+    <p>
+      Mkc Kunal Ki!!!! Idgaf About Him!!
+    <br>
+     Agr Ap Apki Shadi Hone Ke Baad Bhi Aaogi,
+     I will still love you 🗣️
+     <br>
+     Even Tho Mujhe Kunal Ke Sath Milke Blue Drum M Dal Dogi I'll Still love Youuuuuuu 🫵🏻
+    </p>
+    <div class="nav-buttons">
+        <a class="nav-btn-icon" onclick="changePage(5)">&#8592;</a>
+        <a class="nav-btn-icon" onclick="goToFinalPage()">&#8594;</a>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page7">
+  <div class="card center">
+    <div class="photo"><img src="https://cdn.discordapp.com/attachments/1090932473120161854/1452234248206549013/IMG_COM_2025103110523176862.png?ex=69491209&is=6947c089&hm=f10a92f39e16a196213c5950f70ac280785519d6d565f2e864d093662b54ca87&"></div>
+    <br>
+    <h1>03 · January · 2012</h1>
+    <p>
+      Happiest Birthday, Kunal Ki Jigar Ka Tukda<3
+    <br>
+      stay soft nd strong bacchu jii!!!!!
+      <br>
+      stay exactly who you are!!(u are my wifey 🤭)
+      <br><br>
+      This Was Made Only For You 🫵🏻
+      <br>
+      And yes, You Matter To Me!!!!
+      <br>
+      Btw Upr Jo Pic h ↑
+<br>
+That Was The First Pic Jo Apne Mujhe Khudse Bheji Thi 😭!!!!
+<br>
+Hope So Agr Apka Interest Mujhme Se Khtm Bhi Ho Jaye Toh Apko Koi Mujhse Bhi Jada Pyaar Krne Wala Ldka Mile ❤️‍🩹🤞🏻!!
+<br>
+Love You Forever Baccha jiii 🥺🫶🏻!!!
+    </p>
+    <footer style="color: #ff99c8;">             — from someone who choose you <3 </footer>
+  </div>
+</section>
+
+<script>
+  // --- CORE PAGE SWITCHING ---
+  function go(n){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page'+n).classList.add('active');
+  }
+
+  // --- PASSWORD LOGIC ---
+  const NAME='pihu'; // PASSWORD — must be lowercase
+  function unlock(){
+    if (document.getElementById('pass').value === NAME) {
+      changePage(1); // Go to INTRO (page1)
+    } else {
+      alert('Apni he beti ka name bhul gyi kuttiii 💔');
+    }
+  }
+
+  // --- MUSIC ELEMENTS ---
+  const audioElements = {
+    'page-countdown': document.getElementById('music-countdown'),
+    'page0': document.getElementById('music-page0'),
+    'page1': document.getElementById('music-page1'),
+    'page2': document.getElementById('music-page2'),
+    'page3': document.getElementById('music-page3'),
+    'page4': document.getElementById('music-page4'),
+    'page5': document.getElementById('music-page5'),
+    'page6': document.getElementById('music-page6'),
+    'page7': document.getElementById('music-page7'),
+  };
+  const fireworkSound = document.getElementById('fireworkSound');
+  const musicBtn = document.getElementById('music-toggle-btn');
+  let currentSong = audioElements['page-countdown']; // Start with countdown music
+
+  // Pauses all music elements and resets time
+  function pauseAllMusic() {
+    Object.values(audioElements).forEach(audio => {
+      audio.pause();
+      audio.currentTime = 0;
+    });
+  }
+
+  // Switches the music track based on the page ID (e.g., 'page1', 'page7')
+  function switchMusic(pageId) {
+    pauseAllMusic();
+    currentSong = audioElements[pageId];
+    
+    // Attempt to play, relies on prior user interaction
+    currentSong.play().catch(e => console.log(`Autoplay blocked for ${pageId}.`));
+    musicBtn.innerHTML = currentSong.paused ? '🎶' : '🔇';
+  }
+
+  // The main page change function that also handles music and animation cleanup
+  function changePage(n) {
+    // 1. Clear fireworks when leaving the final page
+    if (document.getElementById('page7').classList.contains('active')) {
+         fireworksContainer.innerHTML = ''; 
+    }
+
+    // 2. Determine the page ID
+    const newPageId = 'page' + n;
+    
+    // 3. Switch the page visually
+    go(n);
+
+    // 4. Switch the music
+    switchMusic(newPageId);
+  }
+
+  // Toggle function controls the currently assigned song (set by switchMusic)
+  function toggleMusic(isPlay) {
+      if (!currentSong) return; // Safety check
+
+      if (isPlay === true) {
+          // Used by initial 'Begin' button click to force start
+          currentSong.play().catch(e => console.log("Autoplay blocked."));
+          musicBtn.innerHTML = '🔇';
+          return;
+      }
+
+      if (currentSong.paused) {
+          currentSong.play().catch(e => console.log("Autoplay blocked."));
+          musicBtn.innerHTML = '🔇';
+      } else {
+          currentSong.pause();
+          musicBtn.innerHTML = '🎶';
+      }
+  }
+  
+  // Function to handle transition to the final page
+  function goToFinalPage() {
+      // 1. Switch the page visually
+      go(7); 
+      
+      // 2. Stop all other songs and start the final song ('music-page7')
+      switchMusic('page7'); 
+      
+      // 3. Start the better fireworks!
+      triggerFireworks(); 
+  }
+
+  // --- IMPROVED FIREWORKS LOGIC ---
+  const colors = ['#ff99c8', '#9f6bff', '#A020F0', '#ff598f', '#7affd4', '#e6d6ff'];
+  const fireworksContainer = document.getElementById('fireworks-container');
+  const particleCount = 70; // More particles for a denser explosion
+
+  function createFireworkExplosion(x, y) {
+      fireworkSound.pause();
+      fireworkSound.currentTime = 0;
+      fireworkSound.play().catch(e => console.log("Firework sound blocked."));
+      
+      const primaryColor = colors[Math.floor(Math.random() * colors.length)];
+      
+      for (let i = 0; i < particleCount; i++) { 
+          const particle = document.createElement('div');
+          particle.className = 'explosion-particle';
+          
+          // Randomize color slightly (mix primary with white/secondary)
+          particle.style.backgroundColor = (Math.random() > 0.8) ? '#fff' : primaryColor;
+          
+          // Set initial position
+          particle.style.left = `${x}px`;
+          particle.style.top = `${y}px`;
+          
+          // Calculate random direction and speed
+          const angle = Math.random() * 2 * Math.PI;
+          const velocity = Math.random() * 80 + 40; // Higher velocity for bigger spread
+          const xEnd = x + Math.cos(angle) * velocity;
+          const yEnd = y + Math.sin(angle) * velocity;
+
+          fireworksContainer.appendChild(particle);
+
+          // Use requestAnimationFrame for smooth animation, falling simulation
+          let startTime = null;
+          const duration = 1200 + Math.random() * 500; // 1.2s to 1.7s duration
+          
+          function animate(timestamp) {
+              if (!startTime) startTime = timestamp;
+              const elapsed = timestamp - startTime;
+              const progress = elapsed / duration;
+              
+              if (progress < 1) {
+                  const easedProgress = 1 - Math.pow(1 - progress, 3); // Slow-in, fast-out (explosion look)
+                  const fadeOut = Math.min(1, progress * 1.5); // Fade out faster
+                  
+                  // Simple physics (Parabola/Gravity effect)
+                  const gravityEffect = 0.5 * 0.01 * (elapsed/1000) * (elapsed/1000) * window.innerHeight;
+
+                  // Position update
+                  const currentX = x + Math.cos(angle) * velocity * easedProgress * 2;
+                  const currentY = y + Math.sin(angle) * velocity * easedProgress * 2 + gravityEffect;
+                  
+                  particle.style.left = `${currentX}px`;
+                  particle.style.top = `${currentY}px`;
+                  particle.style.opacity = 1 - fadeOut;
+                  
+                  requestAnimationFrame(animate);
+              } else {
+                  particle.remove();
+              }
+          }
+          requestAnimationFrame(animate);
+      }
+  }
+
+  function triggerFireworks() {
+      fireworksContainer.innerHTML = '';
+      
+      let burstCount = 0;
+      const maxBursts = 5;
+      const interval = 750; // Time between bursts (total duration ~4 seconds)
+      
+      const fireworkInterval = setInterval(() => {
+          if (burstCount >= maxBursts) {
+              clearInterval(fireworkInterval);
+              // Clear the canvas shortly after the final burst
+              setTimeout(() => fireworksContainer.innerHTML = '', 1000);
+              return;
+          }
+          
+          // Random position across the entire width, only in the top 70% of the screen
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight * 0.6; 
+          
+          createFireworkExplosion(x, y);
+          burstCount++;
+
+      }, interval);
+  }
+
+
+  // --- INITIALIZATION AND COUNTDOWN ---
+  
+  // Set initial music when the page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    switchMusic('page-countdown');
+  });
+
+  // Sparkle Effect
+  setInterval(()=>{const e=document.createElement('div');e.className
+='spark';e.textContent=Math.random()>0.5?'🦋':'✦';e.style.left=Math.random()*100+'vw';document.body.appendChild(e);setTimeout(()=>e.remove(),8000)},700);
+
+  /* COUNTDOWN LOGIC */
+  
+  let targetYear = new Date().getFullYear();
+  const targetMonth = 0; 
+  const targetDay = 3;
+  
+  let targetDate = new Date(targetYear, targetMonth, targetDay, 0, 0, 0).getTime();
+  const currentTime = new Date().getTime();
+
+  if (currentTime > targetDate) {
+      targetYear += 1;
+      targetDate = new Date(targetYear, targetMonth, targetDay, 0, 0, 0).getTime();
+  }
+
+  const countdownFunction = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerHTML = days;
+      document.getElementById("hours").innerHTML = hours;
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+
+      if (distance < 0) {
+          clearInterval(countdownFunction);
+          document.querySelector('#page-countdown h1').innerHTML = "HAPPY BIRTHDAY, BABE! 💖";
+          document.querySelector('#page-countdown p').innerHTML = "The wait is over! Automatically redirecting...";
+          document.getElementById("timer-container").innerHTML = ''; 
+          document.getElementById("skip-btn").style.display = 'none'; 
+          
+          setTimeout(() => {
+              document.getElementById('page-countdown').classList.remove('active');
+              skipCountdown(); // Use skipCountdown to redirect to the lock page
+          }, 4000); 
+      }
+  }, 1000);
+
+  function skipCountdown() {
+      clearInterval(countdownFunction);
+      document.getElementById('page-countdown').classList.remove('active');
+      go(0); // Go to lock page
+      switchMusic('page0'); // Start lock page music
+  }
+</script>
+</body>
+</html>
