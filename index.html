@@ -43,6 +43,39 @@
         text-shadow: 0 0 1px #fff, 0 0 2px #9f6bff; 
     }
 
+/* ===== DECORATIVE FAIRY LIGHTS ===== */
+.fairy-lights{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:80px;
+  display:flex;
+  justify-content:space-evenly;
+  z-index:0;
+  pointer-events:none;
+}
+
+.fairy-lights span{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#ff99c8;
+  box-shadow:0 0 12px #ff99c8, 0 0 25px #9f6bff;
+  animation:twinkle 2.5s infinite alternate;
+}
+
+.fairy-lights span:nth-child(even){
+  background:#9f6bff;
+  animation-delay:1.2s;
+}
+
+@keyframes twinkle{
+  from{opacity:.3; transform:scale(.8)}
+  to{opacity:1; transform:scale(1.2)}
+}
+
+
     /* RESTORED ORIGINAL PRIMARY BUTTON STYLE */
     .btn{
       display:inline-block;margin-top:26px;
@@ -212,6 +245,17 @@
   </style>
 </head>
 <body>
+  
+  <!-- Fairy Lights -->
+<div class="fairy-lights">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span>
+</div>
+
+<!-- Gift Ribbon -->
+<div class="ribbon"></div>
+
 
 <audio id="music-countdown" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452187628148621376/mixkit-wall-clock-tick-tock-1060.wav?ex=6948e69e&is=6947951e&hm=c792aa98a1e5416b7ee0a42294635d9cf89fedb72d89e7bc4f00558abc8d11ab&" type="audio/mpeg"></audio>
 <audio id="music-page0" loop><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452198521737314489/sakhiya_Ne_Mainu_Mere_Maar_Diya_Danish_zehen_song256k.mp3?ex=6948f0c4&is=69479f44&hm=48ad3df3409cba78abdb2d880e0afa9ef8892f39ae3689e79f9736d42fa00fbd&" type="audio/mpeg"></audio>
