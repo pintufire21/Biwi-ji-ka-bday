@@ -266,7 +266,9 @@
 <audio id="music-page5" loop><source src="AudioCutter_sufr_ft_Arpit_Bala,_toorjo_dey_-_bargad__official_lyric_video_(256k).mp3" type="audio/mpeg"></audio>
 <audio id="music-page6" loop><source src="AudioCutter_Mi_Amor__Lyrics__-_Sharn,_40k___The_Paul(256k).mp3" type="audio/mpeg"></audio>
 <audio id="music-page7" loop><source src="AudioCutter_Rakhlo_Tum_Chupaake(256k).mp3" type="audio/mpeg"></audio> <audio id="fireworkSound"><source src="https://cdn.discordapp.com/attachments/1090932473120161854/1452255998952607797/FIREWORKS_SOUND_EFFECT_DIWALI_amazingfireworks_firworks_crackers_sound_effects256k.mp3?ex=6949264b&is=6947d4cb&hm=52152381a41fb7a052d0bf4f36fb514a3fecd449f41d791e44c8eae6eae431a8&" type="audio/mpeg"></audio>
-
+<audio id="voice-note">
+  <source src="myvoice.mp3" type="audio/mpeg">
+</audio>
 
 <button id="music-toggle-btn" onclick="toggleMusic()">🎶</button>
 
@@ -466,9 +468,42 @@ Hope So Agr Apka Interest Mujhme Se Khtm Bhi Ho Jaye Toh Apko Koi Mujhse Bhi Jad
 Love You Forever Baccha jiii 🥺🫶🏻!!!
     </p>
     <footer style="color: #ff99c8;">             — from someone who choose you <3 </footer>
+  <br><br>
+<div style="text-align:center">
+  <a class="btn" onclick="goToVoicePage()">
+    🎧 Meri jha2 Si Voice
+  </a>
+</div>
+    
   </div>
 </section>
 
+  <section class="page" id="page8">
+  <div class="card center">
+    <h1>Sun lo meri awaaz 🫶🏻</h1>
+    <br>
+    <p>
+      Perfect nahi hai…  
+      bas dil se hai ❤️
+    </p>
+
+    <br>
+
+    <!-- PLAY BUTTON -->
+    <a class="btn" onclick="playMyVoice()">▶ Play Voice</a>
+
+    <br><br>
+
+    <!-- Hidden audio controls (optional visibility) -->
+    <audio id="voicePlayer" controls style="width:100%; display:none;">
+      <source src="my-voice.mp3" type="audio/mpeg">
+    </audio>
+
+    <br><br>
+    <a class="btn" onclick="changePage(7)">⬅ Back</a>
+  </div>
+  </section>
+  
 <script>
   // --- CORE PAGE SWITCHING ---
   function go(n){
@@ -718,6 +753,20 @@ Love You Forever Baccha jiii 🥺🫶🏻!!!
       go(0); // Go to lock page
       switchMusic('page0'); // Start lock page music
   }
+  function goToVoicePage(){
+  // go to voice page
+  go(8);
+
+  // stop all background music
+  pauseAllMusic();
+}
+
+function playMyVoice(){
+  const voice = document.getElementById('voicePlayer');
+  voice.style.display = 'block';
+  voice.play().catch(()=>{});
+}
+  
 </script>
 </body>
 </html>
