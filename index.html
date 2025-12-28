@@ -371,6 +371,7 @@
       <br>
       Kunal Ki MKC 🤭!!
     </p>
+    <a class="btn" onclick="openGiftVideo(3)">🎥 Watch Video</a>
     <div class="nav-buttons">
         <a class="nav-btn-icon" onclick="changePage(2)">&#8592;</a>
         <a class="nav-btn-icon" onclick="changePage(4)">&#8594;</a>
@@ -391,6 +392,7 @@
       this space is yours pgl 🫵🏻
       Kissi Du???
     </p>
+    <a class="btn" onclick="openGiftVideo(4)">🎥 Watch Video</a>
     <div class="nav-buttons">
         <a class="nav-btn-icon" onclick="changePage(3)">&#8592;</a>
         <a class="nav-btn-icon" onclick="changePage(5)">&#8594;</a>
@@ -417,6 +419,7 @@ ap meri future ho, meri forever ho 🥹🫶🏻
 This isn't just a promise, it's my truth 🖐🏻🙂‍↕️!!
 You're mine, and I’m always yours 🫶🏻!!!!(until unless kunal ki wpis se entry ho jaye)
     </p>
+    <a class="btn" onclick="openGiftVideo(5)">🎥 Watch Video</a>
     <div class="nav-buttons">
         <a class="nav-btn-icon" onclick="changePage(4)">&#8592;</a>
         <a class="nav-btn-icon" onclick="changePage(6)">&#8594;</a>
@@ -439,10 +442,24 @@ You're mine, and I’m always yours 🫶🏻!!!!(until unless kunal ki wpis se e
      <br>
      Even Tho Mujhe Kunal Ke Sath Milke Blue Drum M Dal Dogi I'll Still love Youuuuuuu 🫵🏻
     </p>
+    <a class="btn" onclick="openGiftVideo(6)">🎥 Watch Video</a>
     <div class="nav-buttons">
         <a class="nav-btn-icon" onclick="changePage(5)">&#8592;</a>
         <a class="nav-btn-icon" onclick="goToFinalPage()">&#8594;</a>
     </div>
+  </div>
+</section>
+<section class="page" id="page-video">
+  <div class="card center" style="padding:0; overflow:hidden;">
+    
+    <video id="giftVideo" autoplay playsinline
+      style="width:100%; height:70vh; object-fit:cover; border-radius:30px;">
+    </video>
+
+    <div style="padding:25px;">
+      <a class="btn" onclick="goBackFromVideo()">⬅ Back</a>
+    </div>
+
   </div>
 </section>
 
@@ -769,7 +786,44 @@ function playMyVoice(){
   voice.style.display = 'block';
   voice.play().catch(()=>{});
 }
-  
+  /* ================= GIFT VIDEO LOGIC ================= */
+
+const giftVideoMap = {
+  3: "gift1.mp4",
+  4: "gift2.mp4",
+  5: "gift3.mp4",
+  6: "gift4.mp4"
+};
+
+let lastGiftPage = null;
+
+function openGiftVideo(pageNum){
+  lastGiftPage = pageNum;
+
+  // stop background music
+  pauseAllMusic();
+
+  const video = document.getElementById("giftVideo");
+  video.src = giftVideoMap[pageNum];
+  video.currentTime = 0;
+  video.load();
+
+  // show video page
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-video').classList.add('active');
+
+  video.play().catch(()=>{});
+}
+
+function goBackFromVideo(){
+  const video = document.getElementById("giftVideo");
+  video.pause();
+  video.currentTime = 0;
+
+  go(lastGiftPage);
+  switchMusic('page' + lastGiftPage);
+}
+
 </script>
 </body>
 </html>
