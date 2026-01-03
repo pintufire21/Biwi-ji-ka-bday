@@ -732,18 +732,56 @@ Love You Forever Baccha jiii 🥺🫶🏻!!!
 
   /* COUNTDOWN LOGIC */
   
-  let targetYear = new Date().getFullYear();
-  const targetMonth = 0; 
-  const targetDay = 3;
-  
-  let targetDate = new Date(targetYear, targetMonth, targetDay, 0, 0, 0).getTime();
-  const currentTime = new Date().getTime();
+/* ===== FINAL COUNTDOWN (STOP FOREVER AFTER BDAY) ===== */
 
-  if (currentTime > targetDate) {
-      targetYear += 1;
-      targetDate = new Date(targetYear, targetMonth, targetDay, 0, 0, 0).getTime();
+const BDAY_KEY = "mahuBirthdayDone";
+const targetDate = new Date(2012, 0, 3, 0, 0, 0).getTime();
+
+// If birthday already passed → skip countdown forever
+if (localStorage.getItem(BDAY_KEY) === "yes") {
+    document.getElementById('page-countdown').classList.remove('active');
+    go(0);
+    switchMusic('page0');
+} else {
+
+const countdownFunction = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance <= 0) {
+        clearInterval(countdownFunction);
+
+        // Mark birthday as done forever
+        localStorage.setItem(BDAY_KEY, "yes");
+
+        document.querySelector('#page-countdown h1').innerHTML =
+            "HAPPY BIRTHDAY, BABE! 💖";
+        document.querySelector('#page-countdown p').innerHTML =
+            "Today is all about you 🫶🏻";
+        document.getElementById("timer-container").innerHTML = "";
+        document.getElementById("skip-btn").style.display = "none";
+
+        setTimeout(() => {
+            document.getElementById('page-countdown').classList.remove('active');
+            go(0);
+            switchMusic('page0');
+        }, 4000);
+
+        return;
+    }
+
+    document.getElementById("days").innerText =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById("hours").innerText =
+        Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    document.getElementById("minutes").innerText =
+        Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById("seconds").innerText =
+        Math.floor((distance % (1000 * 60)) / 1000);
+
+}, 1000);
   }
-
+    
   const countdownFunction = setInterval(function() {
       const now = new Date().getTime();
       const distance = targetDate - now;
